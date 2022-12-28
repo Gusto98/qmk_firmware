@@ -42,24 +42,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
+/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 16
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_ANIMATIONS
+  #define RGBLED_NUM 16
+  #define RGBLIGHT_HUE_STEP 16
+  #define RGBLIGHT_SAT_STEP 16
+  #define RGBLIGHT_VAL_STEP 16
+  #define RGBLIGHT_LIMIT_VAL 255
+  #define RGBLIGHT_DEFAULT_HUE 115
+  #define RBGLIGHT_DEFAULT_SAT 25
+  #define RBGLIGHT_DEFAULT_VAL 255
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+//#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -90,7 +94,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * power-up.
  *
  */
-//#define FORCE_NKRO
+#ifdef NKRO_ENABLE
+  #define FORCE_NKRO
+#endif
 
 /*
  * Feature disable options
