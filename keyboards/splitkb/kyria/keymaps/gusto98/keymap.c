@@ -19,7 +19,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _WORKMAN = 0,
+    _WORKMAN_TM = 0,
     _QWERTY = 1,
     _FPSGAMES = 2,
     _GENSHIN = 3,
@@ -33,7 +33,34 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // /*
-//  * Workman layer template
+//  * Workman layer with thumb mods template
+//  *
+//  * ,-------------------------------------------.                                 ,-------------------------------------------.
+//  * | esc    | Q    | D    | R    | W    | B    |                                 | j    | f    | u    | p    | ;    | BCKSPC |
+//  * |--------+------+------+------+------+------|                                 |------+------+------+------+------+--------|
+//  * |LSFT    | A    | S    | H    | T    | G    |                                 | Y    | N    | E    | O    | I    | RSFT/' |
+//  * |--------+------+------+------+------+------+---------------.  ,--------------+------+------+------+------+------+--------|
+//  * |LCTRL/APP| Z   | X    | M    | C    | V    |       | SWAP  |  | SWAP  |      | K    | L    | ,    | .    | / ?  |RCTL/DEL|
+//  * `----------------------+------+------+------+-------+-------|  |-------+------+------+------+------+----------------------'
+//  *                        | GUI  | ALT  | LSHFT| SPACE | TAB   |  |       | ENTER| RSHFT| RALT | RGUI |
+//  *                        |      |      |      |       |       |  |       |      |      |      |      |
+//  *                        `------------------------------------'  `-----------------------------------'
+//  */
+        [_WORKMAN_TM] = LAYOUT(
+            KC_ESC, KC_Q, KC_D, KC_R, KC_W,    KC_B,
+              KC_J, KC_F, KC_U, KC_P, KC_SCLN, KC_BSPC,
+
+            KC_LSFT, KC_A, KC_S, KC_H, KC_T, KC_G,
+               KC_Y, KC_N, KC_E, KC_O, KC_I, KC_QUOT,
+
+            LCTL_T(KC_APP), KC_Z, KC_X, KC_M, KC_C, KC_V, LT(_FKEYSMEDIA,KC_LBRC), LT(_SWAP,KC_CAPS),
+            LT(_SWAP,KC_CAPS), LT(_FKEYSMEDIA,KC_RBRC), KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_DEL),
+
+            KC_LGUI, KC_LALT, LT(_SYMBOLS,KC_MINS), LT(_NUMBERS,KC_SPC), LT(_MOUSEANDNAV,KC_TAB),
+            LT(_MOUSEANDNAV,KC_BSPC), LT(_NUMBERS,KC_ENT), LT(_SYMBOLS,KC_EQL), KC_RALT, KC_RGUI
+        ),
+// /*
+//  * Workman layer with homerow mods template
 //  *
 //  * ,-------------------------------------------.                                 ,-------------------------------------------.
 //  * | esc    | q    | d    | r    | w    | b    |                                 | j    | f    | u    | p    | ;    | \ |    |
@@ -46,7 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  *                        |      |      |      |       |       |  |       |      |      |      |      |
 //  *                        `------------------------------------'  `-----------------------------------'
 //  */
-        [_WORKMAN] = LAYOUT(
+
+        [_WORKMAN_HRM] = LAYOUT(
             KC_ESC, KC_Q, KC_D, KC_R, KC_W,    KC_B,
               KC_J, KC_F, KC_U, KC_P, KC_SCLN, KC_BSLS,
 
@@ -184,25 +212,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  * ,-------------------------------------------.                              ,-------------------------------------------.
 //  * | ~      | !    | @    | #    | $    | %    |                              | ^    | &    | *    | (    | )    |        |
 //  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        | ?    | |    | -    |  =   |      |                              |      |      |      | [    | ]    |        |
+//  * |        | ?    |      | -    | =    |      |                              |      | |    | /    | [    | ]    |        |
 //  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      | {    | }    |        |
+//  * |        |      |      | _    | +    |      |      |      |  |      |      |      |      | \    | {    | }    |        |
 //  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
 //  *                        |      |      |      |      | SPC  |  | BSPC |      |      |      |      |
 //  *                        |      |      |      |      |      |  |      |      |      |      |      |
 //  *                        `----------------------------------'  `----------------------------------'
 //  */
         [_SYMBOLS] = LAYOUT(
-            KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                                                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_NO,
+            KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                                                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSLS,
             KC_NO, KC_QUES, KC_PIPE, KC_MINS, KC_EQL, KC_NO,                                                            KC_NO, KC_NO, KC_NO, KC_LBRC, KC_RBRC, KC_NO,
             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LCBR, KC_RCBR, KC_NO,
-                                KC_NO, KC_NO, KC_NO, KC_NO, KC_SPC,                                       KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO
+                                KC_NO, KC_NO, KC_NO, KC_SPC, KC_SPC,                                       KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO
         ),
 // /*
 //  * MOUSE AND NAVIGATION KEYS layer template
 //  *
 //  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        | ACL0 |      |      |      |      |                              |      |M_BTN1|M_BTN2|M_BTN3|      |        |
+//  * |        | ACL0 |      |      |      |      |                              |      |M_BTN1|M_BTN3|M_BTN2|      |        |
 //  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
 //  * | LSFT   | ACL1 | MS-L | MS-U | MS-R |MSWH-U|                              | LEFT | DOWN | UP   | RIGHT| INS  | RSFT   |
 //  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|

@@ -44,3 +44,36 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+
+
+/* When considering home row mods, consider using TAPPING_FORCE_HOLD or even customising TAPPING_TERM_PER_KEY in keymap.c
+ * For more information, refer to: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold   */
+#define TAPPING_TERM 170
+// #define TAPPING_TERM_PER_KEY
+#define TAPPING_FORCE_HOLD
+// #define PERMISSIVE_HOLD
+// #define HOLD_ON_OTHER_KEY_PRESS
+#define IGNORE_MOD_TAP_INTERRUPT
+// #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+// #define RETRO_TAPPING
+// #define RETRO_TAPPING_PER_KEY
+
+//Mouse settings: https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_mouse_keys
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
+
+#define MK_C_OFFSET_UNMOD 32
+#define MK_C_OFFSET_0 8
+#define MK_C_OFFSET_1 16
+#define MK_C_OFFSET_2 64
+
+//BIGGER INTERVAL == LESS SCROLLING think of it as a fraction
+#define MK_W_OFFSET_UNMOD 1
+#define MK_W_INTERVAL_UNMOD 10
+#define MK_W_OFFSET_0 1
+#define MK_W_INTERVAL_0 60
+#define MK_W_OFFSET_1 1
+#define MK_W_INTERVAL_1 20
+#define MK_W_OFFSET_2 1
+#define MK_W_INTERVAL_2 5
