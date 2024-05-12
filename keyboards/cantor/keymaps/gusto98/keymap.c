@@ -2,6 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0
 // Gusto98's workman keymap
 
+/*
+* design philosophy:
+* minimal finger travel, hence 42 layout, even thumbs only have 3 keys each.
+*
+*/
+
 #include QMK_KEYBOARD_H
 
 enum layers {
@@ -13,8 +19,8 @@ enum layers {
   _FKEYSMEDIA = 5,
   _MOUSENAV = 6,
   _SETTINGS = 7,
-  _SWAP = 8,
-  _SWAPLOCK = 9
+  _SWAPLOCK = 8,
+  _SWAP = 9
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -33,15 +39,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
 
     [_WORKMAN_NOLAYERS] = LAYOUT_split_3x6_3(
-        KC_TAB, KC_Q, KC_D, KC_R, KC_W, KC_B,                               KC_J, KC_F, KC_U, KC_P, KC_SCLN, KC_BSPC,
-        KC_LSFT, KC_A, KC_S, KC_H, KC_T, KC_G,                              KC_Y, KC_N, KC_E, KC_O, KC_I, KC_QUOT,
-        KC_LCTL(KC_APP), KC_Z, KC_X, KC_M, KC_C, KC_V,                      KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH, KC_RCTL(KC_DEL),
-                  KC_LGUI, KC_SPC, KC_TAB,          KC_BSPC, KC_ENT, KC_RALT
+        KC_TAB, KC_Q, KC_D, KC_R, KC_W, KC_B,                               KC_J, KC_F, KC_U, KC_P, KC_SEMICOLON, KC_BACKSPACE,
+        KC_LEFT_SHIFT, KC_A, KC_S, KC_H, KC_T, KC_G,                              KC_Y, KC_N, KC_E, KC_O, KC_I, KC_QUOTE,
+        KC_LEFT_CONTROL(KC_APPLICATION), KC_Z, KC_X, KC_M, KC_C, KC_V,                      KC_K, KC_L, KC_COMMA, KC_DOT, KC_SLASH, KC_RIGHT_CONTROL(KC_DELETE),
+                  KC_LGUI, KC_SPACE, KC_TAB,          KC_BACKSPACE, KC_ENTER, KC_RALT
     )*/
     [_WORKMAN] = LAYOUT_split_3x6_3(
       /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │Tab│ Q │ D │ R │ W │ B │       │ J │ F │ U │ P │ ; │ \ │
+      * │esc│ Q │ D │ R │ W │ B │       │ J │ F │ U │ P │ ; │ \ │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │Sft│ A │ S │ H │ T │ G │       │ Y │ N │ E │ O │ I │ ' │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
@@ -53,14 +59,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                   └───┤Tab│   │Bsp├───┘
       *                       └───┘   └───┘
       */
-      KC_ESC, KC_Q, KC_D, KC_R, KC_W, KC_B, //left row 1
-      KC_J, KC_F, KC_U, KC_P, KC_SCLN, LT(_SWAPLOCK, KC_BSLS), //right row 1
-      KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LSFT_T(KC_H), LCTL_T(KC_T), KC_G, //left row 2 aka home row
-      KC_Y, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_O), RGUI_T(KC_I), RSFT_T(KC_QUOT), //right row 2 aka home row
-      LCTL_T(KC_APP), KC_Z, KC_X, KC_M, KC_C, KC_V, //left row3
-      KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_DEL), //right row 3
-      LT(_SYMBOLS, KC_LGUI), LT(_NUMBERS, KC_SPC), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
-      LT(_MOUSENAV, KC_BSPC), LT(_FKEYSMEDIA, KC_ENT), LT(_SYMBOLS, KC_LALT) //right row 4 aka thumb cluster
+      KC_ESCAPE, KC_Q, KC_D, KC_R, KC_W, KC_B, //left row 1
+      KC_J, KC_F, KC_U, KC_P, KC_SEMICOLON, LT(_SWAPLOCK, KC_BACKSLASH), //right row 1
+      KC_LEFT_SHIFT, LGUI_T(KC_A), LALT_T(KC_S), LSFT_T(KC_H), LCTL_T(KC_T), KC_G, //left row 2 aka home row
+      KC_Y, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_O), RGUI_T(KC_I), RSFT_T(KC_QUOTE), //right row 2 aka home row
+      KC_LEFT_CTRL, KC_Z, KC_X, KC_M, KC_C, LT(_FKEYSMEDIA, KC_V), //left row3
+      LT(_FKEYSMEDIA, KC_K), KC_L, KC_COMMA, KC_DOT, KC_SLASH, RCTL_T(KC_DELETE), //right row 3
+      LT(_SYMBOLS, KC_LGUI), LT(_NUMBERS, KC_SPACE), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
+      LT(_MOUSENAV, KC_BACKSPACE), LT(_NUMBERS, KC_ENTER), LT(_SYMBOLS, KC_LALT) //right row 4 aka thumb cluster
     ),
 
     [_QWERTY] = LAYOUT_split_3x6_3(
@@ -78,87 +84,98 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                   └───┤Tab│   │Bsp├───┘
       *                       └───┘   └───┘
       */
-      KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, //left row 1
-      KC_Y, KC_U, KC_I, KC_O, KC_P, LT(_SWAPLOCK, KC_BSLS), //right row 1
-      KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LSFT_T(KC_D), LCTL_T(KC_F), KC_G, //left row 2 aka home row
-      KC_H, RCTL_T(KC_J), RSFT_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SCLN), RSFT_T(KC_QUOT), //right row 2 aka home row
-      LCTL_T(KC_APP), KC_Z, KC_X, KC_C, KC_V, KC_B, //left row3
-      KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_DEL), //right row 3
-      LT(_SYMBOLS, KC_MINS), LT(_NUMBERS, KC_SPC), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
-      LT(_MOUSENAV, KC_BSPC), LT(_NUMBERS,KC_ENT), LT(_SYMBOLS, KC_EQL) //right row 4 aka thumb cluster
+      KC_ESCAPE, KC_Q, KC_W, KC_E, KC_R, KC_T, //left row 1
+      KC_Y, KC_U, KC_I, KC_O, KC_P, LT(_SWAPLOCK, KC_BACKSLASH), //right row 1
+      KC_LEFT_SHIFT, LGUI_T(KC_A), LALT_T(KC_S), LSFT_T(KC_D), LCTL_T(KC_F), KC_G, //left row 2 aka home row
+      KC_H, RCTL_T(KC_J), RSFT_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SEMICOLON), RSFT_T(KC_QUOTE), //right row 2 aka home row
+      KC_LEFT_CTRL, KC_Z, KC_X, KC_C, KC_V, LT(_FKEYSMEDIA, KC_B), //left row3
+      LT(_FKEYSMEDIA, KC_N), KC_M, KC_COMMA, KC_DOT, KC_SLASH, KC_DELETE, //right row 3
+      LT(_SYMBOLS, KC_LGUI), LT(_NUMBERS, KC_SPACE), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
+      LT(_MOUSENAV, KC_BACKSPACE), LT(_NUMBERS, KC_ENTER), LT(_SYMBOLS, KC_LALT) //right row 4 aka thumb cluster
     ),
-
+//  * ,-------------------------------------------.                              ,-------------------------------------------.
+//  * | 1      | 2    | Q    | W    | E    | R    |                              | Y    | U    | I    | O    | P    | "      |
+//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+//  * | L_CTRL |L_SHFT| A    | S    | D    | F    |                              | H    | J    | K    | L    | ;    | R_SHFT |
+//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+//  * | 3      | 4    | Z    | X    | C    | V    | TAB  | G    |  |      |      | N    | M    | ,    | .    | /    | R_CTRL |
+//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+//  *                        | ESC  | B    | N    |LT(NUM| SPC  |  |      |      |      |      |      |
+//  *                        |      |      |      |, M)  |      |  |      |      |      |      |      |
+//  *                        `----------------------------------'  `----------------------------------'
+//  */
     [_FPSGAMES] = LAYOUT_split_3x6_3(
       /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │Tab│ Q │ D │ R │ W │ B │       │ J │ F │ U │ P │ ; │Bsp│
+      * │1  │ 2 │ Q │ W │ E │ R │       │ Y │ U │ I │ O │ P │ ' │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Sft│ A │ S │ H │ T │ G │       │ Y │ N │ E │ O │ I │ ' │
+      * │LCTL│LSFT│A│ S │ D │ F │       │ H │ J │ K │ L │ ;│RSFT│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Ctl│ Z │ X │ M │ C │ V │       │ K │ L │ , │ . │ / │Ctl│
+      * │3  │ 4 │ Z │ X │ C │ V │       │ N │ M │ , │ . │ / │Ctl│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │FN├───┐           ┌───┤FN│
+      *               │FN ├───┐           ┌───┤FN │
       *               └───┤Spc├───┐   ┌───┤Ent├───┘
       *                   └───┤Tab│   │Bsp├───┘
       *                       └───┘   └───┘
       */
-      KC_ESC, KC_Q, KC_D, KC_R, KC_W, KC_B, //left row 1
-      KC_J, KC_F, KC_U, KC_P, KC_SCLN, LT(_SWAPLOCK, KC_BSLS), //right row 1
-      KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LSFT_T(KC_H), LCTL_T(KC_T), KC_G, //left row 2 aka home row
-      KC_Y, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_O), RGUI_T(KC_I), RSFT_T(KC_QUOT), //right row 2 aka home row
-      LCTL_T(KC_APP), KC_Z, KC_X, KC_M, KC_C, KC_V, //left row3
-      KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_DEL), //right row 3
-      LT(_SYMBOLS, KC_MINS), LT(_NUMBERS, KC_SPC), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
-      LT(_MOUSENAV, KC_BSPC), LT(_NUMBERS,KC_ENT), LT(_SYMBOLS, KC_EQL) //right row 4 aka thumb cluster
+      //STANDARD WASD CONTROLS OFFSET ONE COL TO THE RIGHT
+        KC_1, KC_2, KC_Q, KC_W, KC_E, KC_R,
+        KC_Y, KC_U, KC_I, KC_O, KC_P, LT(_SWAPLOCK, KC_QUOT),
+        KC_LCTL, KC_LSFT, KC_A, KC_S, KC_D, KC_F,
+        KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_RSFT,
+        KC_3, KC_4, KC_Z, KC_X, KC_C, KC_V,
+        KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RCTL,
+        KC_B, LT(_NUMBERS, KC_M), KC_SPC,
+        LT(_MOUSENAV, KC_BSPC), KC_ENT, KC_NO
     ),
     [_NUMBERS] = LAYOUT_split_3x6_3(
       /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │Tab│ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │Bsp│
+      * │   │ 1 │ 2 │ 3 │ 4 │ 5 │       │ 6 │ 7 │ 8 │ 9 │ 0 │ \ │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Sft│ A │ S │ H │ T │ G │       │ Y │ N │ E │ O │ I │ ' │
+      * │   │   │   │   │   │   │       │   │ 4 │ 5 │ 6 │ - │ + │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Ctl│ Z │ X │ M │ C │ V │       │ K │ L │ , │ . │ / │Ctl│
+      * │   │   │   │   │   │   │       │ 0 │ 1 │ 2 │ 3 │ / │ * │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │FN├───┐           ┌───┤FN│
+      *               │FN ├───┐           ┌───┤FN │
       *               └───┤Spc├───┐   ┌───┤Ent├───┘
       *                   └───┤Tab│   │Bsp├───┘
       *                       └───┘   └───┘
       */
-      KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, //left row 1
-      KC_6, KC_7, KC_8, KC_9, KC_0, LT(_SWAPLOCK, KC_BSLS), //right row 1
-      KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LSFT_T(KC_H), LCTL_T(KC_T), KC_G, //left row 2 aka home row
-      KC_Y, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_O), RGUI_T(KC_I), RSFT_T(KC_QUOT), //right row 2 aka home row
-      LCTL_T(KC_APP), KC_Z, KC_X, KC_M, KC_C, KC_V, //left row3
-      KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_DEL), //right row 3
-      LT(_SYMBOLS, KC_MINS), LT(_NUMBERS, KC_SPC), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
-      LT(_MOUSENAV, KC_BSPC), LT(_NUMBERS,KC_ENT), LT(_SYMBOLS, KC_EQL) //right row 4 aka thumb cluster
+      KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5, //left row 1
+      KC_6, KC_7, KC_8, KC_9, KC_0, LT(_SWAPLOCK, KC_BACKSLASH), //right row 1
+      KC_LEFT_SHIFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, //left row 2 aka home row
+      KC_TRNS, KC_4, KC_5, KC_6, KC_MINUS, KC_PLUS, //right row 2 aka home row
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, //left row3
+      KC_0, KC_1, KC_2, KC_3, KC_SLASH, KC_ASTR, //right row 3
+      LT(_SYMBOLS, KC_LGUI), LT(_NUMBERS, KC_SPACE), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
+      LT(_MOUSENAV, KC_BACKSPACE), LT(_NUMBERS, KC_ENTER), LT(_SYMBOLS, KC_LALT) //right row 4 aka thumb cluster
     ),
     [_SYMBOLS] = LAYOUT_split_3x6_3(
-      /*
+      /* current
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │ ` │ ! │ @ │ # │ $ │ % │       │ ^ │ & │ * │ ( │ ) │Bsp│
+      * │ ` │ ! │ @ │ # │ $ │ % │       │ ^ │ & │ * │ ( │ ) │ | │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Sft│ ? │ | │ - │ = │ G │       │ Y │ N │ E │ [ │ ] │ ' │
+      * │Sft│ _ │ - │ + │ = │   │       │   │ ( | ) │ [ │ ] │ " │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │Ctl│ Z │ X │ M │ C │ V │       │ K │ L │ , │ { │ } │Ctl│
+      * │Ctl│   │   │   │   │   │       │   │ { | } │ < | > │Ctl│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │FN├───┐           ┌───┤FN│
+      *               │FN ├───┐           ┌───┤FN │
       *               └───┤Spc├───┐   ┌───┤Ent├───┘
       *                   └───┤Tab│   │Bsp├───┘
       *                       └───┘   └───┘
       */
       KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, //left row 1
-      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, LT(_SWAPLOCK, KC_BSLS), //right row 1
-      KC_LSFT, LGUI_T(KC_QUES), LALT_T(KC_PIPE), LSFT_T(KC_MINS), LCTL_T(KC_EQL), KC_G, //left row 2 aka home row
-      KC_Y, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_LBRC), RGUI_T(KC_RBRC), RSFT_T(KC_QUOT), //right row 2 aka home row
-      LCTL_T(KC_APP), KC_Z, KC_X, KC_M, KC_C, KC_V, //left row3
-      KC_K, KC_L, KC_COMM, KC_LCBR, KC_RCBR, RCTL_T(KC_DEL), //right row 3
-      LT(_SYMBOLS, KC_MINS), LT(_NUMBERS, KC_SPC), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
-      LT(_MOUSENAV, KC_BSPC), LT(_NUMBERS,KC_ENT), LT(_SYMBOLS, KC_EQL) //right row 4 aka thumb cluster
+      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, LT(_SWAPLOCK, KC_PIPE), //right row 1
+      KC_LEFT_SHIFT, KC_UNDERSCORE, KC_MINUS, KC_PLUS, KC_EQUAL, KC_TRNS, //left row 2 aka home row
+      KC_TRNS, KC_LPRN, KC_RPRN, KC_LEFT_BRACKET, KC_RIGHT_BRACKET, KC_DQUO, //right row 2 aka home row
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, //left row3
+      KC_TRNS, KC_LCBR, KC_RCBR, KC_LT, KC_GT, KC_TRNS, //right row 3
+      LT(_SYMBOLS, KC_LGUI), LT(_NUMBERS, KC_SPACE), LT(_MOUSENAV, KC_TAB), //left row 4 aka thumb cluster
+      LT(_MOUSENAV, KC_BACKSPACE), LT(_NUMBERS, KC_ENTER), LT(_SYMBOLS, KC_LALT) //right row 4 aka thumb cluster
     ),
     [_FKEYSMEDIA] = LAYOUT_split_3x6_3(
       /*
@@ -167,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
       * │BRIU │MPRV │MPLY │MUTE │MNXT │VOLU │       │WBAK │WSCH │WHOM │WFWD │WFAV │     │
       * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
-      * │BRID │MRWD |MSTP │EJCT |MFFD |VOLD │       │     │     │     │     │MYCM │CALC │
+      * │BRID │MRWD |MSTP │EJCT |MFFD |VOLD │       │HOLD │     │     │     │MYCM │CALC │
       * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
       *                   ┌─────┐                               ┌─────┐
       *                   │     ├─────┐                   ┌─────┤     │
@@ -180,14 +197,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_BRIU, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, KC_VOLU, //left row 2 aka home row
       KC_WBAK, KC_WSCH, KC_WHOM, KC_WFWD, KC_WFAV, KC_NO, //right row 2 aka home row
       KC_BRID, KC_MRWD, KC_MSTP, KC_EJCT, KC_MFFD, KC_VOLD, //left row3
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_MYCM, KC_CALC, //right row 3
+      KC_TRNS, KC_NO, KC_NO, KC_NO, KC_MYCM, KC_CALC, //right row 3
       KC_NO, KC_NO, KC_NO, //left row 4 aka thumb cluster
       KC_NO, KC_NO, KC_NO //right row 4 aka thumb cluster
     ),
     [_MOUSENAV] = LAYOUT_split_3x6_3(
       /*
       * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
-      * │     │ACL0 │     │     │     │     │       │     │MBT1 │MBT2 │MBT3 │     │     │
+      * │     │ACL0 │     │     │     │     │       │     │MBT1 │MBT3 │MBT2 │MBT4 │MBT5 │
       * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
       * │     │ACL1 │MSL  │MSU  │MSR  │MWHU │       │LEFT │DOWN │UP   │RIGHT│     │     │
       * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
@@ -200,14 +217,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                                 └─────┘       └─────┘
       */
       KC_NO, KC_ACL0, KC_NO, KC_NO, KC_NO, KC_NO, //left row 1
-      KC_NO, KC_BTN1, KC_BTN3, KC_BTN2, KC_NO, KC_NO, //right row 1
+      KC_NO, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN4, KC_BTN5, //right row 1
       KC_NO, KC_ACL1, KC_MS_L, KC_MS_U, KC_MS_R, KC_WH_U, //left row 2 aka home row
       KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, //right row 2 aka home row
       KC_NO, KC_ACL2, KC_WH_L, KC_MS_D, KC_WH_R, KC_WH_D, //left row3
-      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_INS, KC_DEL, //right row 3
+      KC_HOME, KC_PAGE_DOWN, KC_PAGE_UP, KC_END, KC_INS, KC_DELETE, //right row 3
       KC_NO, KC_NO, KC_NO, //left row 4 aka thumb cluster
       KC_NO, KC_NO, KC_NO //right row 4 aka thumb cluster
     ),
+
+    //need a way to exit settings w/o having to unplug and replug the keyboard.
     [_SETTINGS] = LAYOUT_split_3x6_3(
       /*
       * ┌───────┬───────┬───────┬───────┬───────┬─────┐         ┌──────┬──────┬──────┬──────┬─────┬─────┐
@@ -232,30 +251,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO, KC_NO, KC_NO, //left row 4 aka thumb cluster
       KC_NO, KC_NO, KC_NO //right row 4 aka thumb cluster
     ),
-    [_SWAP] = LAYOUT_split_3x6_3(
-      /*
-      * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
-      * │SETTINGS│QWERTY│FPSGAMES│    │     │       │     │     │     │     │     │     │
-      * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
-      * │     |     |     |     |     |     │       |     |     |     |     |     │     │
-      * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
-      * │     |     |     │     |     |     │       │     │     │     │     │     |     │
-      * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
-      *                   ┌─────┐                               ┌─────┐
-      *                   │     ├─────┐                   ┌─────┤     │
-      *                   └─────┤     ├─────┐       ┌─────┤     ├─────┘
-      *                         └─────┤     │       │     ├─────┘
-    *                                 └─────┘       └─────┘
-      */
-      TG(_SETTINGS), TG(_QWERTY), TG(_FPSGAMES), KC_NO, KC_NO, KC_NO, //left row 1
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 1
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row 2 aka home row
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 2 aka home row
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row3
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 3
-      KC_NO, KC_NO, KC_NO, //left row 4 aka thumb cluster
-      KC_NO, KC_NO, KC_NO //right row 4 aka thumb cluster
-    ),
     [_SWAPLOCK] = LAYOUT_split_3x6_3(
       /*
       * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -272,7 +267,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                                 └─────┘       └─────┘
       */
       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row 1
-      LT(_SWAP, KC_NO), KC_CAPS, KC_SCRL, KC_NUM, KC_NO, KC_NO, //right row 1
+      LT(_SWAP, KC_NO), KC_CAPS_LOCK, KC_SCROLL_LOCK, KC_NUM_LOCK, KC_NO, KC_TRNS, //right row 1
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row 2 aka home row
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 2 aka home row
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row3
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 3
+      KC_NO, KC_NO, KC_NO, //left row 4 aka thumb cluster
+      KC_NO, KC_NO, KC_NO //right row 4 aka thumb cluster
+    ),
+    [_SWAP] = LAYOUT_split_3x6_3(
+      /*
+      * ┌─────┬─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┬─────┐
+      * │SETTINGS│QWERTY│FPSGAMES│    │     │       │HOLD │     │     │     │     │     │
+      * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
+      * │     |     |     |     |     |     │       |     |     |     |     |     │     │
+      * ├─────┼─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┼─────┤
+      * │     |     |     │     |     |     │       │     │     │     │     │     |     │
+      * └─────┴─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┴─────┘
+      *                   ┌─────┐                               ┌─────┐
+      *                   │     ├─────┐                   ┌─────┤     │
+      *                   └─────┤     ├─────┐       ┌─────┤     ├─────┘
+      *                         └─────┤     │       │     ├─────┘
+    *                                 └─────┘       └─────┘
+      */
+      TG(_SETTINGS), TG(_QWERTY), TG(_FPSGAMES), KC_NO, KC_NO, KC_NO, //left row 1
+      KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 1
       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row 2 aka home row
       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //right row 2 aka home row
       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, //left row3
@@ -281,4 +300,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO, KC_NO, KC_NO //right row 4 aka thumb cluster
     )
 };
-

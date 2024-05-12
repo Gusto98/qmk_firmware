@@ -49,15 +49,13 @@
 
 /* When considering home row mods, consider using TAPPING_FORCE_HOLD or even customising TAPPING_TERM_PER_KEY in keymap.c
  * For more information, refer to: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold   */
-#define TAPPING_TERM 170
+#define TAPPING_TERM 180
+#define IGNORE_MOD_TAP_INTERRUPT
 // #define TAPPING_TERM_PER_KEY
 #define TAPPING_FORCE_HOLD
 // #define PERMISSIVE_HOLD
 // #define HOLD_ON_OTHER_KEY_PRESS
-#define IGNORE_MOD_TAP_INTERRUPT
-// #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-// #define RETRO_TAPPING
-// #define RETRO_TAPPING_PER_KEY
+
 
 //Mouse settings: https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_mouse_keys
 #define MK_3_SPEED
