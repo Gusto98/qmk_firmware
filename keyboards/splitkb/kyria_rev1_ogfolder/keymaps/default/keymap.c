@@ -16,10 +16,9 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _WORKMAN = 0,
-    _QWERTY,
-//    _DVORAK,
-//    _COLEMAK_DH,
+    _QWERTY = 0,
+    _DVORAK,
+    _COLEMAK_DH,
     _NAV,
     _SYM,
     _FUNCTION,
@@ -28,20 +27,19 @@ enum layers {
 
 
 // Aliases for readability
-#define WORKMAN     DF(_WORKMAN)
-#define QWERTY      DF(_QWERTY)
-//#define DVORAK    DF(_DVORAK)
-//#define COLEMAK   DF(_COLEMAK_DH)
+#define QWERTY   DF(_QWERTY)
+#define COLEMAK  DF(_COLEMAK_DH)
+#define DVORAK   DF(_DVORAK)
 
-#define SYMBOLS     MO(_SYMBOL)
-#define NAVKEYS     MO(_NAVIGATION)
-#define FKEYS       MO(_FUNCTION)
-#define ADJUST      MO(_ADJUST)
+#define SYM      MO(_SYM)
+#define NAV      MO(_NAV)
+#define FKEYS    MO(_FUNCTION)
+#define ADJUST   MO(_ADJUST)
 
-#define CTL_ESC     MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT    MT(MOD_RCTL, KC_QUOTE)
-#define CTL_MINS    MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT     MT(MOD_LALT, KC_ENT)
+#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
+#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
+#define CTL_MINS MT(MOD_RCTL, KC_MINUS)
+#define ALT_ENT  MT(MOD_LALT, KC_ENT)
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -50,27 +48,7 @@ enum layers {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
- * Base Layer: WORKMAN
- *
- * .-----------------------------------------------------.                                      .-----------------------------------------------------.
- * | ESC    | Q      | D      | R      | W      | B      |                                      | J      | F      | U      | P      | ;  :   | Bksp   |
- * |--------+--------+--------+--------+--------+--------|                                      |--------+--------+--------+--------+--------+--------|
- * |Ctrl/Esc| A      | S      | H      | T      | G      |                                      | Y      | N      | E      | O      | I      |RSft/' "|
- * |--------+--------+--------+--------+--------+--------+-----------------.  .-----------------+--------+--------+--------+--------+--------+--------|
- * | LShift | Z      | X      | M      | C      | V      | [ {    | CapsLk |  | F-keys | ] }    | K      | L      | ,  <   | . >    | /  ?   | RShift |
- * .--------------------------+--------+--------+--------+--------+--------|  |--------------------------+--------+--------+--------+--------+--------|
- *                            |        |        |        | Space  | Tab       | Enter  | BackSpc|        |        |        |
- *                            |        |        |        |        |        |  |        |        |        |        |        |
- *                            .--------------------------------------------.  .--------------------------------------------.
- */
-    [_QWERTY] = LAYOUT(
-     KC_TAB  , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
-     CTL_ESC , KC_A ,  KC_S   ,  KC_D  ,   KC_F ,   KC_G ,                                        KC_H,   KC_J ,  KC_K ,   KC_L ,KC_SCLN,CTL_QUOT,
-     KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                ADJUST , KC_LGUI, ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
-    ),
-/*
- * Layer: QWERTY
+ * Base Layer: QWERTY
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  Tab   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
@@ -149,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU, KC_DEL,
       _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
+      _______, _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
