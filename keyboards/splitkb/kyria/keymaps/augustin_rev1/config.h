@@ -36,7 +36,7 @@
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16
   #define RGBLIGHT_VAL_STEP 20
-  //#define RGBLIGHT_LIMIT_VAL 255        // max brightness
+  #define RGBLIGHT_LIMIT_VAL 255        // max brightness
   #define RGBLIGHT_DEFAULT_HUE 115      // defaults after an EEPROM reset
   #define RGBLIGHT_DEFAULT_SAT 25
   #define RGBLIGHT_DEFAULT_VAL 110

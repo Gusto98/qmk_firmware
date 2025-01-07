@@ -28,13 +28,13 @@ bool oled_task_kb(void) {
     if (is_keyboard_master()) {
         // QMK Logo and version information
         // clang-format off
-        static const char PROGMEM qmk_logo[] = {
-            0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-            0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-            0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
-        // clang-format on
+        // static const char PROGMEM qmk_logo[] = {
+        //     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+        //     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+        //     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+        // // clang-format on
 
-        oled_write_P(qmk_logo, false);
+        // oled_write_P(qmk_logo, false);
         oled_write_P(PSTR("Kyria "), false);
 #if defined(KEYBOARD_splitkb_kyria_rev1)
         oled_write_P(PSTR("rev1\n\n"), false);
@@ -47,25 +47,37 @@ bool oled_task_kb(void) {
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state | default_layer_state)) {
             case 0:
-                oled_write_P(PSTR("QWERTY\n"), false);
+                oled_write_P(PSTR("Workman\n"), false);
                 break;
             case 1:
-                oled_write_P(PSTR("Dvorak\n"), false);
+                oled_write_P(PSTR("WorkmanBE\n"), false);
                 break;
+            // case 1:
+            //     oled_write_P(PSTR("Dvorak\n"), false);
+            //     break;
             case 2:
-                oled_write_P(PSTR("Colemak-DH\n"), false);
+                oled_write_P(PSTR("QWERTY\n"), false);
                 break;
             case 3:
-                oled_write_P(PSTR("Nav\n"), false);
+                oled_write_P(PSTR("Numbers\n"), false);
                 break;
             case 4:
-                oled_write_P(PSTR("Sym\n"), false);
+                oled_write_P(PSTR("Symbols\n"), false);
                 break;
             case 5:
-                oled_write_P(PSTR("Function\n"), false);
+                oled_write_P(PSTR("Function Keys\n& Media\n"), false);
                 break;
             case 6:
-                oled_write_P(PSTR("Adjust\n"), false);
+                oled_write_P(PSTR("Navigation\n"), false);
+                break;
+            case 7:
+                oled_write_P(PSTR("Settings\n"), false);
+                break;
+            case 8:
+                oled_write_P(PSTR("Swap\n\n"), false);
+                oled_write_P(PSTR("Q: QWERTY\n"), false);
+                oled_write_P(PSTR("W: WORKMAN\n"), false);
+                oled_write_P(PSTR("B: WORKMANBE\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
@@ -104,18 +116,19 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
             tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
         }
     } else if (index == 1) {
         // Page up/Page down
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_PAGE_UP);
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_PAGE_DOWN);
         }
     }
     return true;
 }
 #endif
+
