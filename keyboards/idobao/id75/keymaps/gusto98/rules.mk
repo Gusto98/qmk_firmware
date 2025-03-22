@@ -2,6 +2,7 @@ OLED_DRIVER_ENABLE = no   	# Enables the use of OLED displays
 ENCODER_ENABLE = no       	# Enables the use of one or more encoders
 NKRO_ENABLE = yes			# Enables the use of NKRO
 RGBLIGHT_ENABLE = yes      	# Enables keyboard RGB underglow
+CFLAGS += -DRGBLIGHT_HUE_STEP=16 -DRGBLIGHT_SAT_STEP=16 -DRGBLIGHT_VAL_STEP=20
 WPM_ENABLE = no
 SPLIT_KEYBOARD = no 		# Enable defining of master side
 MOUSEKEY_ENABLE = yes 		# Use Mouse Functions
