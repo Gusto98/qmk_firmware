@@ -18,8 +18,8 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _WORKMAN_BE = 0,
-    _WORKMAN,
+    _WORKMAN = 0,
+    _WORKMAN_BE,
     _QWERTY,
     _NUMBERS,
     _SYMBOLS,
