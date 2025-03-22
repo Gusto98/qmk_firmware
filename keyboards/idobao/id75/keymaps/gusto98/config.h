@@ -8,7 +8,7 @@
   #define RGBLIGHT_ANIMATIONS         // disabled to reduce firmware size
   #define RGBLIGHT_EFFECT_STATIC_LIGHT  // enables the static light mode
   #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLED_NUM 16                 // number of RGB lights
+  //#define RGBLED_NUM 16                 // number of RGB lights
   #define RGBLIGHT_SLEEP                // turns off lights when system sleeps
   //#define RGBLIGHT_HUE_STEP 16
   //#define RGBLIGHT_SAT_STEP 16
